@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jms.now</title>
+    <style>
+        body {
+            font-family: serif;
+            text-align: center;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+        }
+
+        .container {
+            max-width: 1000px;
+            max-height: 1000px;
+            margin: 0; 
+            display: flex;
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center;
+        }
+
+        h1 {
+            font-weight: bold;
+            text-transform: lowercase;
+        }
+
+        p {
+            font-style: italic;
+        }
+
+        .icons {
+            margin: 10px 0;
+        }
+
+        .icons a img {
+            width: 30px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .footer-fade {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
+        }
+
+        .stars {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 100%;
+            opacity: 0;
+            animation: fadeStars 5s infinite ease-in-out;
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: shootStar 1s linear forwards;
+        }
+
+        .shooting-star-trail {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            opacity: 0.5;
+            border-radius: 50%;
+            animation: trailMovement 1s linear forwards;
+        }
+
+        @keyframes fadeStars {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.3); }
+        }
+
+        @keyframes shootStar {
+            0% {
+                opacity: 1;
+                transform: translateX(0) translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(200px) translateY(200px) scale(0);
+            }
+        }
+
+        @keyframes trailMovement {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { opacity: 0; }
+            100% { transform: translate(150px, 150px) scale(0); opacity: 0; }
+        }
+
+        .nebula {
+            position: fixed;
+            width: 100px; /* Smaller size */
+            height: 100px; /* Smaller size */
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(0, 0, 255, 0.4) 0%,               /* Blue center with reduced opacity */
+                rgba(255, 105, 180, 0.4) 30%,          /* Pinkish hue with reduced opacity */
+                rgba(139, 0, 0, 0.3) 60%,             /* Dark red edge with reduced opacity */
+                rgba(0, 0, 0, 0) 100%                 /* Transparent edge */
+            );
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.2), 0 0 80px rgba(0, 0, 255, 0.2); /* Reduced glow effect */
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            animation: nebulaEffect 15s infinite alternate;
+        }
+        
+        @keyframes nebulaEffect {
+            0% { opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="clouds"></div>
+    <div class="container">
+        <h1>jms.now</h1>
+        <p>// JMS [•] W \\</p>
+
+        <h2>gamedev</h2>
+        <p><strong>_souls</strong><br>
+        permadeath open world immersive sim type RPG with real-life story aspects</p>
+
+        <h2>tasks</h2>
+        <p><strong>_studios</strong><br>
+        create a studio label for video game developers, handled by indepence<br>
+        do it for the culture</p>
+
+        <h2>art</h2>
+        <div class="icons">
+            <a href="https://x.com/James_Scripts"><img src="https://i.ibb.co/bgwh3tBP/image-2025-02-28-202857759.png" alt="Icon 2"></a>
+            <a href="https://www.roblox.com/users/181024076/profile"><img src="https://i.ibb.co/HTj4g7cb/image-2025-02-28-203045367.png" alt="Icon 3"></a>
+        </div>
+    </div>
+
+    <div class="footer-fade"></div>
+    <div class="vignette"></div>
+    <div class="nebula"></div>
+
+    <script>
+        function createStars() {
+            for (let i = 0; i < 250; i++) { 
+                let star = document.createElement("div");
+                star.classList.add("stars");
+                star.style.top = Math.random() * 1000 + "px";
+                star.style.left = Math.random() * 100 + "%"; 
+                star.style.animationDuration = (Math.random() * 3 + 3) + "s"; 
+                document.body.appendChild(star);
+            }
+        }
+
+        function createShootingStar() {
+            let shootingStar = document.createElement("div");
+            shootingStar.classList.add("shooting-star");
+            shootingStar.style.top = Math.random() * 1000 + "px"; 
+            shootingStar.style.left = Math.random() * 100 + "%"; 
+            document.body.appendChild(shootingStar);
+
+            // Create trail behind the shooting star
+            let trail = document.createElement("div");
+            trail.classList.add("shooting-star-trail");
+            trail.style.top = shootingStar.style.top;
+            trail.style.left = shootingStar.style.left;
+            document.body.appendChild(trail);
+
+            // Remove the shooting star and trail after the animation ends
+            shootingStar.addEventListener('animationend', () => {
+                shootingStar.remove();
+                trail.remove();
+            });
+        }
+
+        function showNebula() {
+            let nebula = document.querySelector(".nebula");
+        
+            // Set random position for the nebula within the viewport
+            nebula.style.top = Math.random() * 1000 + "px";  // Random top position
+            nebula.style.left = Math.random() * 100 + "%"; // Random left position
+        
+            nebula.style.opacity = Math.random() > 0.7 ? 0.6 : 0; // Randomize nebula appearance
+        }
+
+        // Create stars on page load
+        createStars();
+      
+        // Show nebula every 30 seconds
+        setInterval(showNebula, 60000);  // Shooting stars every 1 minute
+
+        // Create shooting stars at random intervals
+        setInterval(createShootingStar, 5000); // Shooting star every 5 seconds
+    </script>
+</body>
+</html>
